@@ -27,3 +27,5 @@ ENV/
 # VSCode
 .vscode
 .vscode/
+
+db.sqlite3
