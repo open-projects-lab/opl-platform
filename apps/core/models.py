@@ -1,3 +1,6 @@
+"""
+core app database models
+"""
 from django.db import models
 from django.contrib.auth.models import User
 from apps.core.constants import GENDER_CHOICES
@@ -6,6 +9,9 @@ from apps.core.constants import GENDER_CHOICES
 
 
 class Person(models.Model):
+    """
+    person model to add custom fields to user model
+    """
     user = models.OneToOneField(User)
     fathers_name = models.CharField(max_length=30, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)

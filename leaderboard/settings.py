@@ -12,24 +12,30 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+# ======================================================================================================================
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# ======================================================================================================================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# ======================================================================================================================
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# ======================================================================================================================
 SECRET_KEY = '=_j+((w$qnd!ii%^)wtjho7-qrz5h269imh++f4ez=hwb-q(ik'
 
+# ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
+# ======================================================================================================================
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
+# ======================================================================================================================
+# DJANGO APPS
+# ======================================================================================================================
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,11 +45,17 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# ======================================================================================================================
+# THIRD PARTY APPS for Advanced features
+# ======================================================================================================================
 THIRD_PARTY_APPS = [
     'grappelli',
     'nested_admin',
 ]
 
+# ======================================================================================================================
+# LEADERBOARD APPS for project
+# ======================================================================================================================
 LEADERBOARD_APPS = [
     'apps',
     'apps.core',
@@ -51,6 +63,9 @@ LEADERBOARD_APPS = [
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LEADERBOARD_APPS
 
+# ======================================================================================================================
+# DJANGO MIDDLEWARE
+# ======================================================================================================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,6 +78,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'leaderboard.urls'
 
+# ======================================================================================================================
+# DJANGO TEMPLATES
+# ======================================================================================================================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,6 +103,9 @@ WSGI_APPLICATION = 'leaderboard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# ======================================================================================================================
+# DATABASE CONFIGURATION
+# ======================================================================================================================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -129,9 +150,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+
+# ======================================================================================================================
+# STATIC PATHS
+# ======================================================================================================================
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 
 GRAPPELLI_ADMIN_TITLE = 'Leaderboard'
-
