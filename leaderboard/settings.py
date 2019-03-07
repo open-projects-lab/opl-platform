@@ -39,11 +39,17 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-LEADERBOARD_APPS = [
-    'apps'
+THIRD_PARTY_APPS = [
+    'grappelli',
+    'nested_admin',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + LEADERBOARD_APPS
+LEADERBOARD_APPS = [
+    'apps',
+    'apps.core',
+]
+
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LEADERBOARD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,3 +130,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+
+
+GRAPPELLI_ADMIN_TITLE = 'Leaderboard'
+

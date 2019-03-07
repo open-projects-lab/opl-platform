@@ -28,4 +28,10 @@ ENV/
 .vscode
 .vscode/
 
+# database
+
 db.sqlite3
+
+# staticfiles
+
+static/
