@@ -29,9 +29,6 @@ SECRET_KEY = '=_j+((w$qnd!ii%^)wtjho7-qrz5h269imh++f4ez=hwb-q(ik'
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
 # ======================================================================================================================
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 # ======================================================================================================================
 # DJANGO APPS
@@ -100,23 +97,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'opl.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-# ======================================================================================================================
-# DATABASE CONFIGURATION
-# ======================================================================================================================
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -159,3 +141,33 @@ STATIC_ROOT = 'static'
 
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
+
+# ======================================================================================================================
+# below written lines should be imported from local_settings.py
+# try:
+#     from opl.local_settings import *
+# except ImportError:
+#     pass
+# ======================================================================================================================
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+# ======================================================================================================================
+# DATABASE CONFIGURATION
+# ======================================================================================================================
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'opl',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
