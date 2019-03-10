@@ -142,7 +142,32 @@ STATIC_ROOT = 'static'
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
 
-try:
-    from opl.local_settings import *
-except ImportError:
-    pass
+# ======================================================================================================================
+# below written lines should be imported from local_settings.py
+# try:
+#     from opl.local_settings import *
+# except ImportError:
+#     pass
+# ======================================================================================================================
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+# ======================================================================================================================
+# DATABASE CONFIGURATION
+# ======================================================================================================================
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'opl',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
