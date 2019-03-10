@@ -1,2 +1,2 @@
-# leaderboard
-Open Projects Leaderboard
+# OPL
+Open Project Labs Platform
