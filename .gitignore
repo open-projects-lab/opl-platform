@@ -19,6 +19,8 @@ coverage.xml
 # virtualenv
 venv/
 ENV/
+env/
+.env
 
 # PyCharm
 .idea/
@@ -34,3 +36,4 @@ db.sqlite3
 # staticfiles
 
 static/
+logs/

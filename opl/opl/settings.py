@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ======================================================================================================================
-SECRET_KEY = '=_j+((w$qnd!ii%^)wtjho7-qrz5h269imh++f4ez=hwb-q(ik'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -48,6 +48,10 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'grappelli',
     'nested_admin',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 # ======================================================================================================================
@@ -66,6 +70,7 @@ INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + OPL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,10 +142,16 @@ USE_TZ = True
 # STATIC PATHS
 # ======================================================================================================================
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
+
+# ======================================================================================================================
+# MEDIA PATHS
+# ======================================================================================================================
+#temporary media storage
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # ======================================================================================================================
 # below written lines should be imported from local_settings.py
@@ -153,7 +164,10 @@ GRAPPELLI_ADMIN_TITLE = 'OPL'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['oplserver']
+
+if DEBUG:
+    ALLOWED_HOSTS=['*']
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -161,13 +175,45 @@ ALLOWED_HOSTS = ['*']
 # ======================================================================================================================
 # DATABASE CONFIGURATION
 # ======================================================================================================================
-DATABASES = {
+if DEBUG:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opl',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get("POSTGRES_DB",''),
+            'USER': os.environ.get("POSTGRES_USER",''),
+            'HOST': os.environ.get("POSTGRES_HOST",''),  # <-- IMPORTANT: same name as docker-compose service!
+            'PASSWORD': os.environ.get("POSTGRES_PASSWORD",''),
+            'PORT': '5432',
+        }
+    }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS':(
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
+
+CORS_ALLOW_CREDENTIALS = True
+
+if DEBUG:
+    CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    )
+    CORS_ORIGIN_REGEX_WHITELIST = (
+    'localhost:3000',
+)
