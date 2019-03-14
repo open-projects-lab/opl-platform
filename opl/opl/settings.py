@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ======================================================================================================================
-SECRET_KEY = '=_j+((w$qnd!ii%^)wtjho7-qrz5h269imh++f4ez=hwb-q(ik'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -143,6 +143,12 @@ STATIC_ROOT = 'static'
 GRAPPELLI_ADMIN_TITLE = 'OPL'
 
 # ======================================================================================================================
+# MEDIA PATHS
+# ======================================================================================================================
+#temporary media storage
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# ======================================================================================================================
 # below written lines should be imported from local_settings.py
 # try:
 #     from opl.local_settings import *
@@ -153,7 +159,10 @@ GRAPPELLI_ADMIN_TITLE = 'OPL'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['oplserver']
+
+if DEBUG:
+    ALLOWED_HOSTS=['*']
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -161,13 +170,22 @@ ALLOWED_HOSTS = ['*']
 # ======================================================================================================================
 # DATABASE CONFIGURATION
 # ======================================================================================================================
-DATABASES = {
+if DEBUG:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opl',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get("POSTGRES_DB",''),
+            'USER': os.environ.get("POSTGRES_USER",''),
+            'HOST': os.environ.get("POSTGRES_HOST",''),  # <-- IMPORTANT: same name as docker-compose service!
+            'PASSWORD': os.environ.get("POSTGRES_PASSWORD",''),
+            'PORT': '5432',
+        }
+    }
+
