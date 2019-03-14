@@ -48,6 +48,10 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'grappelli',
     'nested_admin',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 # ======================================================================================================================
@@ -66,6 +70,7 @@ INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + OPL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,7 +142,7 @@ USE_TZ = True
 # STATIC PATHS
 # ======================================================================================================================
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
@@ -189,3 +194,26 @@ else:
         }
     }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS':(
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+CORS_ALLOW_CREDENTIALS = True
+
+if DEBUG:
+    CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    )
+    CORS_ORIGIN_REGEX_WHITELIST = (
+    'localhost:3000',
+)
