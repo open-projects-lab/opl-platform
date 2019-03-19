@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ======================================================================================================================
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = '0*m%nlpk$4sg04#)p0g1!e+hn4r*t^j=2#8(fgt65vo@o^z$6!'
 
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
