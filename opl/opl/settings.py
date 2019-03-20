@@ -46,6 +46,7 @@ DJANGO_APPS = [
 # THIRD PARTY APPS for Advanced features
 # ======================================================================================================================
 THIRD_PARTY_APPS = [
+    'crispy_forms',
     'grappelli',
     'nested_admin',
     'corsheaders',
@@ -143,6 +144,12 @@ USE_TZ = True
 # ======================================================================================================================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'blog-home'
+
+LOGIN_URL = 'login'
 
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
