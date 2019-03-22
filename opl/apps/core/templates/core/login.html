@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container d-flex h-100">
-        <div class="row justify-content-center align-self-center w-100">
-            <div class="col-sm-10 col-md-6 col-lg-6 mx-auto">
+    <div class="container">
+        <div class="row justify-content-center align-self-center mt-5 mx-0">
+            <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
                 <form method="POST">
                     {% csrf_token %}
                     <fieldset class="form-group">
@@ -21,8 +21,8 @@
                 </form>
                 <div class="border-top pt-3">
                     <small class="text-muted">
-                        Need have an account? 
-                        <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                        Don't have an account? 
+                        <a class="ml-2 text-info" href="{% url 'register' %}">Sign Up</a>
                     </small>
                 </div>
             </div>

@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ======================================================================================================================
-SECRET_KEY = '0*m%nlpk$4sg04#)p0g1!e+hn4r*t^j=2#8(fgt65vo@o^z$6!'
+SECRET_KEY = "a1h+^44kx7h$u=1*g#ks7ep5_#jj9*8j9xb-yd#tcg(cdldpz7+?"
 
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -143,14 +143,15 @@ USE_TZ = True
 # STATIC PATHS
 # ======================================================================================================================
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_REDIRECT_URL = 'home-page'
 
 LOGIN_URL = 'login'
 
+MEDIA_URL = '/media/'
 
 GRAPPELLI_ADMIN_TITLE = 'OPL'
 
@@ -158,7 +159,7 @@ GRAPPELLI_ADMIN_TITLE = 'OPL'
 # MEDIA PATHS
 # ======================================================================================================================
 #temporary media storage
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ======================================================================================================================
 # below written lines should be imported from local_settings.py
@@ -174,7 +175,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['oplserver']
 
 if DEBUG:
-    ALLOWED_HOSTS=['*']
+    ALLOWED_HOSTS = ['*']
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -184,19 +185,19 @@ if DEBUG:
 # ======================================================================================================================
 if DEBUG:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE' : 'django.db.backends.sqlite3',
+            'NAME' : os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
         }
-    }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ.get("POSTGRES_DB",''),
-            'USER': os.environ.get("POSTGRES_USER",''),
-            'HOST': os.environ.get("POSTGRES_HOST",''),  # <-- IMPORTANT: same name as docker-compose service!
-            'PASSWORD': os.environ.get("POSTGRES_PASSWORD",''),
+            'NAME': os.environ.get("POSTGRES_DB", ''),
+            'USER': os.environ.get("POSTGRES_USER", ''),
+            'HOST': os.environ.get("POSTGRES_HOST", ''),  # <-- IMPORTANT: same name as docker-compose service!
+            'PASSWORD': os.environ.get("POSTGRES_PASSWORD", ''),
             'PORT': '5432',
         }
     }
@@ -219,8 +220,8 @@ CORS_ALLOW_CREDENTIALS = True
 
 if DEBUG:
     CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
+        'localhost:3000',
     )
     CORS_ORIGIN_REGEX_WHITELIST = (
-    'localhost:3000',
-)
+        'localhost:3000',
+    )
