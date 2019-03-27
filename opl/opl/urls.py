@@ -14,13 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from apps.core import views as users_views
 
 admin.site.index_title = 'OPL Database'
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^nested_admin/', include('nested_admin.urls')),
-    url(r'^grappelli/', include('grappelli.urls')),
+    path('admin/', admin.site.urls),
+    path('nested_admin/', include('nested_admin.urls')),
+    path('grappelli/', include('grappelli.urls')),
+    path('register/', users_views.register, name='register'),
+    path('profile/', users_views.profile, name='profile'),
+    path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='core/logout.html'), name='logout'),
+    path('', include('apps.core.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+                          
