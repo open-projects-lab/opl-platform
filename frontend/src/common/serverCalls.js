@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiUrl} from './constants';
+import {API_URL} from './constants';
 
 
 const getRequestHeaders = () => {
@@ -19,7 +19,7 @@ export const configObj = {
     headers: getRequestHeaders()
 };
 
-const getServerUrl = requestUrl => `${apiUrl}/${requestUrl}`;
+const getServerUrl = requestUrl => `${API_URL}/${requestUrl}`;
 
 export const apiGet = requestUrl => axios.get(getServerUrl(requestUrl), configObj);
 

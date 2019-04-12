@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {ProfileDetail} from './apps';
 
 const App = () => (
     <div className="App">
@@ -18,6 +19,9 @@ const App = () => (
                 Learn React
             </a>
         </header>
+        <section>
+            <ProfileDetail/>
+        </section>
     </div>
 );
 
