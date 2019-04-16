@@ -1,5 +1,6 @@
-import {getProfileDetail} from './profileActions';
+import {registerUser, getProfileDetail} from './profileActions';
 
 export {
+    registerUser,
     getProfileDetail
 };

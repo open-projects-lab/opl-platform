@@ -1,6 +1,6 @@
-// import {API, constants} from '../../../../common';
+import {API, constants} from '../../../../common';
 
-// export const getProfileDetail = () => API.get(constants.API_URLS.core.getProfileDetail());
+export const userRegistrationHelper = userData => API.postUser(constants.API_URLS.core.userRegistrationUrl, userData);
 
 export const getProfileDetailHelper = () => new Promise(res => {
     const dummyProfile = {

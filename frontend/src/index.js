@@ -15,7 +15,6 @@ const MainApp = props => (
             <Route path="/" component={App}/>
         </Router>
     </Provider>
-
 );
 
 ReactDOM.render(<MainApp/>, document.getElementById('root'));

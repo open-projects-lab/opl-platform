@@ -1,10 +1,11 @@
 import {connect} from 'react-redux';
 import {ProfileDetail} from '../components';
-import {getProfileDetail} from '../logic';
+import {registerUser, getProfileDetail} from '../logic';
 
 const mapStateToProps = ({profileReducer}) => ({profileReducer});
 
 const mapDispatchToProps = dispatch => ({
+    registerUser: userData => dispatch(registerUser(userData)),
     getProfileDetail: () => dispatch(getProfileDetail()),
 });
 

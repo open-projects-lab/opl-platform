@@ -33,6 +33,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 pillow = "*"
 django-crispy-forms = "*"
+markdown = "*"
 
 [dev-packages]
 

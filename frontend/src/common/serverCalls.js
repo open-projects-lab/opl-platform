@@ -25,6 +25,8 @@ export const apiGet = requestUrl => axios.get(getServerUrl(requestUrl), configOb
 
 export const apiPost = (requestUrl, postData) => axios.post(getServerUrl(requestUrl), postData, configObj);
 
+export const apiPostUser = (requestUrl, postData) => axios.post(getServerUrl(requestUrl), postData);
+
 export const apiPatch = (requestUrl, postData) => axios.patch(getServerUrl(requestUrl), postData, configObj);
 
 export const apiPut = (requestUrl, postData) => axios.put(getServerUrl(requestUrl), postData, configObj);
