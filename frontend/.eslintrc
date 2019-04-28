@@ -1,0 +1,95 @@
+{
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true,
+		"jquery": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"airbnb",
+		"prettier",
+		"prettier/react",
+		"plugin:flowtype/recommended"
+	],
+	"settings": {
+		"react": {
+			"pragma": "React",
+			"version": "^16.8.4"
+		}
+	},
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+			"experimentalObjectRestSpread": true,
+			"modules": true
+		},
+		"ecmaVersion": 6,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"flowtype"
+	],
+	"rules": {
+		"strict": [2, "safe"],
+		"no-console": 0,
+		"react/prefer-es6-class": 1,
+		"react/jsx-uses-react": "error",
+		"react/jsx-uses-vars": "error",
+		"import/prefer-default-export": 0,
+		"arrow-parens": ["error", "as-needed"],
+		"react/forbid-prop-types": 0,
+		"react/destructuring-assignment": 0,
+		"jsx-a11y/label-has-for": 0,
+		"jsx-a11y/label-has-associated-control": 0,
+		"spaced-comment": 0,
+		"arrow-body-style": ["error", "as-needed"],
+		"func-style": ["error", "expression"],
+		"quote-props": ["error", "as-needed"],
+		"no-extra-parens": "error",
+		"no-extra-bind": "error",
+		"jsx-quotes": ["error", "prefer-double"],
+		"max-len": [
+			"error",
+			{
+				"code": 120
+			}
+		],
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
+		"no-unused-vars": [
+			"error",
+			{
+				"vars": "all",
+				"args": "after-used",
+				"ignoreRestSiblings": false
+			}
+		],
+		"indent": [
+			"error",
+			4,
+			{
+				"SwitchCase": 1
+			}
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		]
+	}
+}
