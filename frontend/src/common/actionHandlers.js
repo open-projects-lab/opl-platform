@@ -11,4 +11,8 @@ export default (helperMethod, requestData, successActionType, errorActionType, s
             error.response = response;
             dispatch(getErrorData(error, errorActionType, errorData));
         }
-    }).catch(error => dispatch(getErrorData(error.response.data, errorActionType, errorData)));
+    }).catch(error => {
+        //eslint-disable-next-line
+        debugger;
+        dispatch(getErrorData(error.response.data, errorActionType, errorData));
+    });

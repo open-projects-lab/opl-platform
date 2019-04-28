@@ -24,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ======================================================================================================================
-SECRET_KEY = os.environ.get("SECRET_KEY")
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "0*m%nlpk$4sg04#)p0g1!e+hn4r*t^j=2#8(fgt65vo@o^z$6!"
 
 # ======================================================================================================================
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -53,6 +54,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'webpack_loader'
 ]
 
 # ======================================================================================================================
@@ -87,7 +89,7 @@ ROOT_URLCONF = 'opl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates"), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -171,6 +173,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+PROD = False
 
 ALLOWED_HOSTS = ['*'] if DEBUG else ['oplserver']
 
@@ -240,8 +243,41 @@ CORS_ALLOW_CREDENTIALS = True
 
 if DEBUG:
     CORS_ORIGIN_WHITELIST = (
+        'localhost:8000',
+        '127.0.0.1:8000',
         'localhost:3000',
+        '127.0.0.1:3000'
     )
-    CORS_ORIGIN_REGEX_WHITELIST = (
-        'localhost:3000',
+
+    CORS_ALLOW_HEADERS = (
+        'accept',
+        'accept-encoding',
+        'authorization',
+        'content-type',
+        'dnt',
+        'origin',
+        'user-agent',
+        'x-csrftoken',
+        'x-requested-with',
+        'cache-control'
     )
+
+if PROD:
+    WEBPACK_LOADER = {
+        'DEFAULT': {
+            'BUNDLE_DIR_NAME': 'bundles/',
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.prod.json'),
+        }
+    }
+else:
+    WEBPACK_LOADER = {
+        'DEFAULT': {
+            'BUNDLE_DIR_NAME': 'bundles/',
+            'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
+        }
+    }
+
+STATICFILES_DIRS = (
+    # This lets Django's collectstatic store our bundles
+    os.path.join(BASE_DIR, 'frontend'),
+)

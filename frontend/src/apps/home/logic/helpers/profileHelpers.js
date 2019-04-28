@@ -2,7 +2,8 @@ import {API, constants} from '../../../../common';
 
 export const userRegistrationHelper = userData => API.postUser(constants.API_URLS.core.userRegistrationUrl, userData);
 
-export const updateProfileHelper = profileData => API.post(constants.API_URLS.core.profileDetailUrl, profileData);
+export const updateProfileHelper = profileData => API.patch(
+    constants.API_URLS.core.getProfileDetailUrl(profileData.id), profileData);
 
 export const getProfileDetailHelper = () => new Promise(res => {
     const dummyProfile = {

@@ -19,6 +19,7 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const BundleTracker = require('webpack-bundle-tracker');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
@@ -37,6 +38,9 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const PUBLIC_PATH = 'http://localhost:3000/';
+const PUBLIC_URL = 'http://localhost:3000/';
+
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -49,7 +53,7 @@ module.exports = function (webpackEnv) {
     // In development, we always serve from the root. This makes config easier.
     const publicPath = isEnvProduction
         ? paths.servedPath
-        : isEnvDevelopment && '/';
+        : PUBLIC_PATH;
     // Some apps do not use client-side routing with pushState.
     // For these, "homepage" can be set to "." to enable relative asset paths.
     const shouldUseRelativeAssetPaths = publicPath === './';
@@ -59,7 +63,7 @@ module.exports = function (webpackEnv) {
     // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
     const publicUrl = isEnvProduction
         ? publicPath.slice(0, -1)
-        : isEnvDevelopment && '';
+        : PUBLIC_URL;
     // Get environment variables to inject into our app.
     const env = getClientEnvironment(publicUrl);
     
@@ -133,8 +137,10 @@ module.exports = function (webpackEnv) {
             // the line below with these two lines if you prefer the stock client:
             // require.resolve('webpack-dev-server/client') + '?/',
             // require.resolve('webpack/hot/dev-server'),
-            isEnvDevelopment &&
-            require.resolve('react-dev-utils/webpackHotDevClient'),
+            // isEnvDevelopment &&
+            // require.resolve('react-dev-utils/webpackHotDevClient'),
+            isEnvDevelopment && require.resolve('webpack-dev-server/client') + '?http://localhost:3000',
+            isEnvDevelopment && require.resolve('webpack/hot/dev-server'),
             // Finally, this is your app's code:
             paths.appIndexJs,
             // We include the app code last so that if there is a runtime error during
@@ -233,13 +239,13 @@ module.exports = function (webpackEnv) {
             // Automatically split vendor and commons
             // https://twitter.com/wSokra/status/969633336732905474
             // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
-            splitChunks: {
-                chunks: 'all',
-                name: false,
-            },
+            // splitChunks: {
+            //     chunks: 'all',
+            //     name: false,
+            // },
             // Keep the runtime chunk separated to enable long term caching
             // https://twitter.com/wSokra/status/969679223278505985
-            runtimeChunk: true,
+            // runtimeChunk: true,
         },
         resolve: {
             // This allows you to set a fallback for where Webpack should look for modules.
@@ -514,6 +520,7 @@ module.exports = function (webpackEnv) {
             // Otherwise React will be compiled in the very slow development mode.
             new webpack.DefinePlugin(env.stringified),
             // This is necessary to emit hot updates (currently CSS only):
+            isEnvDevelopment && new BundleTracker({path: paths.statsRoot, filename: 'webpack-stats.dev.json'}),
             isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
             // Watcher doesn't work well if you mistype casing in a path so we use
             // a plugin that prints an error when you attempt to do this.

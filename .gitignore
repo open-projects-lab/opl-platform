@@ -37,3 +37,7 @@ db.sqlite3
 
 static/
 logs/
+
+# webpack files
+webpack-stats.prod.json
+webpack-stats.dev.json

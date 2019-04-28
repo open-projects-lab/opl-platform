@@ -20,6 +20,9 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
+from django.views.static import serve
+
 from apps.core import views as users_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
@@ -33,13 +36,15 @@ urlpatterns = [
     url(r'^api/v1/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url(r'^api/v1/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^api/v1/token/verify/$', TokenVerifyView.as_view(), name='token_verify'),
+    url(r'^staticfiles/(?P<path>.*)$', serve, kwargs=dict(document_root=settings.STATIC_ROOT)),
 
     url(r'', include('apps.core.urls', namespace='core')),
 
-    path('register/', users_views.register, name='register'),
-    path('profile/', users_views.profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='core/logout.html'), name='logout'),
+    # path('register/', users_views.register, name='register'),
+    # path('profile/', users_views.profile, name='profile'),
+    # path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
+    # path('logout/', auth_views.LogoutView.as_view(template_name='core/logout.html'), name='logout'),
+    url(r'^', TemplateView.as_view(template_name="index.html")),
 ]
 
 if settings.DEBUG:

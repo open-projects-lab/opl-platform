@@ -34,6 +34,7 @@ djangorestframework-simplejwt = "*"
 pillow = "*"
 django-crispy-forms = "*"
 markdown = "*"
+django-webpack-loader = "*"
 
 [dev-packages]
 

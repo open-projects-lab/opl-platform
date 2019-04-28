@@ -6,6 +6,6 @@ from . import views
 app_name = 'core'
 
 urlpatterns = [
-    path('', views.home, name='home-page'),
+    # path('', views.home, name='home-page'),
     url(r'^api/', include('apps.core.api.urls', namespace='api')),
 ]
