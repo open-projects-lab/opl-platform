@@ -1,6 +1,7 @@
-import {userRegistrationHelper, getProfileDetailHelper} from './profileHelpers';
+import {userRegistrationHelper, getProfileDetailHelper, updateProfileHelper} from './profileHelpers';
 
 export {
     userRegistrationHelper,
-    getProfileDetailHelper
+    getProfileDetailHelper,
+    updateProfileHelper
 };

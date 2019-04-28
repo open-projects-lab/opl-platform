@@ -3,6 +3,7 @@ import {actionTypes} from '../../../../common';
 
 const initialState = new Map({
     user: {},
+    tokens: {},
     profile: {},
     error: null,
     statusSuccess: false,
@@ -11,10 +12,12 @@ const initialState = new Map({
 export default (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.USER_REGISTRATION_SUCCESSFULLY:
-            localStorage.setItem('refreshToken', action.response.data.refresh);
-            localStorage.setItem('accessToken', action.response.data.access);
+            localStorage.setItem('refreshToken', action.response.data.tokens.refresh);
+            localStorage.setItem('accessToken', action.response.data.tokens.access);
+            localStorage.setItem('token', action.response.data.tokens.access);
             return state.merge({
-                user: action.response.data,
+                tokens: action.response.data.tokens,
+                profile: action.response.data.profile,
                 error: null,
                 statusSuccess: true,
             });

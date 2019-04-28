@@ -1,12 +1,10 @@
 import React from 'react';
 import './App.css';
-import {ProfileDetail} from './apps';
+import routes from './routes';
 
 const App = () => (
     <div className="App">
-        <section>
-            <ProfileDetail/>
-        </section>
+        {routes}
     </div>
 );
 

@@ -1,8 +1,9 @@
-import {registerUser, getProfileDetail} from './actions';
+import {registerUser, getProfileDetail, updateProfile} from './actions';
 import {profileReducer} from './reducers';
 
 export {
     registerUser,
     getProfileDetail,
+    updateProfile,
     profileReducer
 };

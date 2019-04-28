@@ -2,37 +2,48 @@ import React, {Component} from 'react';
 import * as PropTypes from 'prop-types';
 import {TextField, Grid, Button, Card, withStyles} from '@material-ui/core';
 import styles from '../style';
+import browserHistory from '../../../history';
 
-class ProfileDetail extends Component {
+class UserRegistration extends Component {
     
     constructor(props) {
         super(props);
         
         this.state = {
-            profileDetail: null
+            userDetail: {
+                username: '',
+                email: '',
+                password: '',
+                first_name: '',
+                last_name: '',
+            }
         };
     }
     
     componentDidMount() {
-        const profileDetail = this.props.profileReducer.get('profile');
-        this.setState({profileDetail});
+        this.props.getProfileDetail();
     }
     
     onChange = (e, property) => {
-        const {profileDetail} = this.state;
-        profileDetail[property] = e.target.value;
-        this.setState({profileDetail});
+        const {userDetail} = this.state;
+        userDetail[property] = e.target.value;
+        this.setState({userDetail});
     };
     
     onSubmit = e => {
         e.preventDefault();
-        const {profileDetail} = this.state;
-        this.props.updateProfile(profileDetail);
+        const {userDetail} = this.state;
+        this.props.registerUser(userDetail).then(() => {
+            const statusSuccess = this.props.profileReducer.get('statusSuccess');
+            if (statusSuccess) {
+                browserHistory.push('/profile');
+            }
+        });
     };
     
     render() {
         
-        const {profileDetail} = this.state;
+        const {userDetail} = this.state;
         const {classes} = this.props;
         return (
             <div>
@@ -43,46 +54,47 @@ class ProfileDetail extends Component {
                                 <TextField
                                     required
                                     fullWidth
-                                    value={profileDetail ? profileDetail.skills: ''}
-                                    onChange={e => this.onChange(e, 'skills')}
-                                    label="Skills"
+                                    value={userDetail.username}
+                                    onChange={e => this.onChange(e, 'username')}
+                                    label="Username"
                                 />
                             </Grid>
                             <Grid item sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    value={profileDetail ? profileDetail.biography: ''}
-                                    onChange={e => this.onChange(e, 'biography')}
-                                    label="Biography"
+                                    value={userDetail.first_name}
+                                    onChange={e => this.onChange(e, 'first_name')}
+                                    label="First name"
                                 />
                             </Grid>
                             <Grid item sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    value={profileDetail ? profileDetail.linkedin: ''}
-                                    onChange={e => this.onChange(e, 'linkedin')}
-                                    label="Linkedin"
+                                    value={userDetail.last_name}
+                                    onChange={e => this.onChange(e, 'last_name')}
+                                    label="Last name"
                                 />
                             </Grid>
                             <Grid item sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    value={profileDetail ? profileDetail.github: ''}
-                                    onChange={e => this.onChange(e, 'github')}
-                                    label="Github"
+                                    type="email"
+                                    value={userDetail.email}
+                                    onChange={e => this.onChange(e, 'email')}
+                                    label="Email"
                                 />
                             </Grid>
                             <Grid item sm={6}>
                                 <TextField
                                     required
                                     fullWidth
-                                    value={profileDetail ? profileDetail.slack: ''}
-                                    onChange={e => this.onChange(e, 'slack')}
-                                    label="Slack"
-                                />
+                                    type="password"
+                                    value={userDetail.password}
+                                    onChange={e => this.onChange(e, 'password')}
+                                    label="Password"/>
                             </Grid>
                             <Grid item sm={6}>
                                 <Button type="submit" variant="outlined">Submit</Button>
@@ -95,10 +107,11 @@ class ProfileDetail extends Component {
     }
 }
 
-ProfileDetail.propTypes = {
+UserRegistration.propTypes = {
     classes: PropTypes.object.isRequired,
     profileReducer: PropTypes.object.isRequired,
-    updateProfile: PropTypes.func.isRequired
+    getProfileDetail: PropTypes.func.isRequired,
+    registerUser: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ProfileDetail);
+export default withStyles(styles)(UserRegistration);

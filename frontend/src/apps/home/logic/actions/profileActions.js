@@ -1,10 +1,15 @@
 import {actionTypes, performServerCall} from '../../../../common';
-import {userRegistrationHelper, getProfileDetailHelper} from '../helpers';
+import {userRegistrationHelper, getProfileDetailHelper, updateProfileHelper} from '../helpers';
 
 
 export const getProfileDetail = () => dispatch => dispatch(
     performServerCall(getProfileDetailHelper, {},
         actionTypes.GET_PROFILE_DETAIL_SUCCESSFULLY, actionTypes.GET_PROFILE_DETAIL_FAILED)
+);
+
+export const updateProfile = profileData => dispatch => dispatch(
+    performServerCall(updateProfileHelper, profileData,
+        actionTypes.UPDATE_PROFILE_DETAIL_SUCCESSFULLY, actionTypes.UPDATE_PROFILE_DETAIL_FAILED)
 );
 
 export const registerUser = userData => dispatch => dispatch(

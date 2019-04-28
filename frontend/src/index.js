@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {MuiThemeProvider} from '@material-ui/core';
 import './index.css';
 import {Provider} from 'react-redux';
 import {Route, Router} from 'react-router-dom';
@@ -7,14 +8,17 @@ import App from './App';
 import history from './history';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
+import theme from './theme';
 
 
 const MainApp = props => (
-    <Provider store={store} {...props}>
-        <Router history={history}>
-            <Route path="/" component={App}/>
-        </Router>
-    </Provider>
+    <MuiThemeProvider theme={theme}>
+        <Provider store={store} {...props}>
+            <Router history={history}>
+                <Route path="/" component={App}/>
+            </Router>
+        </Provider>
+    </MuiThemeProvider>
 );
 
 ReactDOM.render(<MainApp/>, document.getElementById('root'));

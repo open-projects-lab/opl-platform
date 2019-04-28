@@ -8,4 +8,5 @@ app_name = 'core'
 
 urlpatterns = [
     url(r'^user/register', views.UserRegistrationView.as_view()),
+    url(r'^profile', views.ProfileUpdateView.as_view()),
 ]

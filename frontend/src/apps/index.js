@@ -1,6 +1,7 @@
-import {ProfileDetail, profileReducer} from './home';
+import {UserRegistration, ProfileDetail, profileReducer} from './home';
 
 export {
+    UserRegistration,
     ProfileDetail,
     profileReducer
 };
