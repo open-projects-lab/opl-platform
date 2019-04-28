@@ -39,6 +39,18 @@ export default (state = initialState, action) => {
                 error: null,
                 statusSuccess: true,
             });
+        case actionTypes.UPDATE_PROFILE_DETAIL_SUCCESSFULLY:
+            return state.merge({
+                profile: action.response.data,
+                error: null,
+                statusSuccess: true,
+            });
+        case actionTypes.UPDATE_PROFILE_DETAIL_FAILED:
+            return state.merge({
+                profile: {},
+                error: null,
+                statusSuccess: true,
+            });
         default:
             return state;
     }

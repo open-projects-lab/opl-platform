@@ -27,7 +27,10 @@ class ProfileDetail extends Component {
     onSubmit = e => {
         e.preventDefault();
         const {profileDetail} = this.state;
-        this.props.updateProfile(profileDetail);
+        this.props.updateProfile(profileDetail).then(() => {
+            const profileDetail = this.props.profileReducer.get('profile');
+            this.setState({profileDetail});
+        });
     };
     
     render() {
